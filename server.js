@@ -1,6 +1,6 @@
 const cors = require('cors');
 app.use(cors({
-    origin: 'https://whokilledevv.github.io' // Allows your GitHub site to talk to this server
+    origin: 'https://whokilledevv.github.io' // Replace with your exact GitHub URL
 }));
 require('dotenv').config();
 const express = require('express');
