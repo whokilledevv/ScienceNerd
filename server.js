@@ -1,3 +1,7 @@
+const cors = require('cors');
+app.use(cors({
+    origin: 'https://whokilledevv.github.io' // Allows your GitHub site to talk to this server
+}));
 require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
