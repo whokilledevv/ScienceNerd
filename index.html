@@ -195,7 +195,7 @@ async function updateUIAndUpload(files) {
 
     try {
             const API_URL = "https://your-service-name.onrender.com"; 
-            const response = await fetch(`${API_URL}/upload-pdf`, { ... }); { 
+            const response = await fetch('http://localhost:3000/upload-pdf') { ... }); { 
             method: 'POST', 
             body: formData 
         });
