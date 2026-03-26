@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ScienceNerd | Smart Learning</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nerd-bg': '#E6E2C5',      /* Parchment */
+                        'nerd-dark': '#2B4593',    /* Marian Blue */
+                        'nerd-primary': '#2B4593', /* Marian Blue */
+                        'nerd-card': '#F4E9DE',    /* Paper Light */
+                        'nerd-accent': '#055254',  /* Dark Teal */
+                        'nerd-text-light': '#E6E2C5', /* Parchment */
+                    },
+                    fontFamily: {
+                        sans: ['Merriweather', 'serif'],
+                        heading: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass {
+            background: rgba(230, 226, 197, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom-color: #2B4593;
+        }
+    </style>
+</head>
+<body class="bg-nerd-bg text-nerd-dark font-sans selection:bg-nerd-primary selection:text-nerd-text-light">
+
+    <nav class="fixed w-full z-50 glass border-b border-nerd-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="Home.html" class="flex items-center gap-2">
+                    <svg class="w-8 h-8 text-nerd-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    <span class="font-heading font-bold text-2xl tracking-tight text-nerd-dark">Science<span class="text-nerd-accent italic">Nerd</span></span>
+                </a>
+                
+                <div class="hidden md:flex space-x-8 font-medium text-base text-nerd-dark/80">
+                    <a href="Home.html" class="hover:text-nerd-primary transition italic">Home</a>
+                    <a href="Sim.html" class="hover:text-nerd-primary transition italic">Simulations</a>
+                    <a href="about.html" class="text-nerd-primary border-b-2 border-nerd-primary font-bold italic">About</a>
+                </div>
+
+                <a class="bg-nerd-dark text-nerd-text-light px-6 py-2.5 rounded-full font-heading font-semibold text-sm hover:bg-opacity-90 transition shadow-lg shadow-nerd-primary/20" href="GetStarted.html">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-16 px-4">
+        <div class="max-w-5xl mx-auto">
+            
+            <div class="text-center mb-16">
+                <h1 class="font-heading text-4xl md:text-5xl font-bold mb-4 text-nerd-dark">
+                    The Story Behind <span class="italic text-nerd-accent">ScienceNerd</span>
+                </h1>
+                <p class="text-nerd-dark/70 text-lg max-w-2xl mx-auto leading-relaxed">
+                    We bridge the gap between static textbooks and dynamic understanding, making complex scientific concepts accessible, interactive, and beautifully simple.
+                </p>
+            </div>
+
+            <div class="bg-nerd-card rounded-3xl shadow-xl shadow-nerd-dark/10 p-8 md:p-12 border border-nerd-accent relative overflow-hidden mb-16">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="font-heading text-3xl font-bold text-nerd-dark mb-4">Our Mission</h2>
+                        <p class="text-nerd-dark/80 leading-loose mb-6">
+                            Students often struggle to visualize abstract scientific laws hidden within dense PDF documents. ScienceNerd was born from a simple idea: <strong>What if your textbook could come alive?</strong>
+                        </p>
+                        <p class="text-nerd-dark/80 leading-loose">
+                            By leveraging Artificial Intelligence, we instantly extract core laws from your uploaded materials and generate engaging, interactive simulations. No more memorizing without understanding.
+                        </p>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="w-64 h-64 rounded-full border-4 border-dashed border-nerd-accent/30 flex items-center justify-center bg-nerd-bg/50">
+                            <svg class="w-24 h-24 text-nerd-primary opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-20">
+                <h2 class="font-heading text-3xl font-bold text-center text-nerd-dark mb-10">How It Works</h2>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="p-6">
+                        <div class="w-16 h-16 mx-auto bg-nerd-primary text-nerd-text-light rounded-full flex items-center justify-center font-heading text-2xl font-bold mb-4 shadow-lg shadow-nerd-primary/30">1</div>
+                        <h3 class="font-heading text-xl font-bold text-nerd-dark mb-2">Upload</h3>
+                        <p class="text-sm text-nerd-dark/70 leading-relaxed">Upload your study material in PDF format. We handle the reading.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="w-16 h-16 mx-auto bg-nerd-accent text-nerd-text-light rounded-full flex items-center justify-center font-heading text-2xl font-bold mb-4 shadow-lg shadow-nerd-accent/30">2</div>
+                        <h3 class="font-heading text-xl font-bold text-nerd-dark mb-2">Analyze</h3>
+                        <p class="text-sm text-nerd-dark/70 leading-relaxed">Our AI backend extracts variables, formulas, and core scientific laws instantly.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="w-16 h-16 mx-auto bg-nerd-dark text-nerd-text-light rounded-full flex items-center justify-center font-heading text-2xl font-bold mb-4 shadow-lg shadow-nerd-dark/30">3</div>
+                        <h3 class="font-heading text-xl font-bold text-nerd-dark mb-2">Simulate</h3>
+                        <p class="text-sm text-nerd-dark/70 leading-relaxed">Interact with beautiful, tailored 2D/3D simulations based entirely on your text.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <h2 class="font-heading text-3xl font-bold text-nerd-dark mb-10">Meet the Team</h2>
+                <div class="flex justify-center gap-8 flex-wrap">
+                    
+                    <div class="bg-nerd-card border border-nerd-accent/50 rounded-2xl p-6 w-64 shadow-md hover:shadow-xl transition-shadow">
+                        <div class="w-20 h-20 mx-auto bg-nerd-bg border-2 border-nerd-primary rounded-full flex items-center justify-center mb-4 text-nerd-primary">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-nerd-dark">Haneen</h3>
+                        <p class="text-sm text-nerd-accent italic mt-1">Frontend Developer</p>
+                    </div>
+                    <div class="bg-nerd-card border border-nerd-accent/50 rounded-2xl p-6 w-64 shadow-md hover:shadow-xl transition-shadow">
+                        <div class="w-20 h-20 mx-auto bg-nerd-bg border-2 border-nerd-primary rounded-full flex items-center justify-center mb-4 text-nerd-primary">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-nerd-dark">Radwa</h3>
+                        <p class="text-sm text-nerd-accent italic mt-1">Frontend Developer</p>
+                    </div>
+                    <div class="bg-nerd-card border border-nerd-accent/50 rounded-2xl p-6 w-64 shadow-md hover:shadow-xl transition-shadow">
+                        <div class="w-20 h-20 mx-auto bg-nerd-bg border-2 border-nerd-primary rounded-full flex items-center justify-center mb-4 text-nerd-primary">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-nerd-dark">Ziad</h3>
+                        <p class="text-sm text-nerd-accent italic mt-1">Backend & AI</p>
+                    </div>
+                    <div class="bg-nerd-card border border-nerd-accent/50 rounded-2xl p-6 w-64 shadow-md hover:shadow-xl transition-shadow">
+                        <div class="w-20 h-20 mx-auto bg-nerd-bg border-2 border-nerd-primary rounded-full flex items-center justify-center mb-4 text-nerd-primary">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-nerd-dark">Hassan</h3>
+                        <p class="text-sm text-nerd-accent italic mt-1">Backend & AI</p>
+                    </div>
+                    <div class="bg-nerd-card border border-nerd-accent/50 rounded-2xl p-6 w-64 shadow-md hover:shadow-xl transition-shadow">
+                        <div class="w-20 h-20 mx-auto bg-nerd-bg border-2 border-nerd-primary rounded-full flex items-center justify-center mb-4 text-nerd-primary">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-nerd-dark">Osama</h3>
+                        <p class="text-sm text-nerd-accent italic mt-1">Backend & AI</p>
+                    </div>
+
+                    
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-8 border-t border-nerd-dark/10 mt-12 text-nerd-dark/60 text-sm font-sans">
+        <p>&copy; 2025 ScienceNerd. Designed with passion by Haneen and Radwa.</p>
+    </footer>
+
+</body>
+</html>

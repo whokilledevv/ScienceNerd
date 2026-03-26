@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Explanation | ScienceNerd AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Merriweather:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nerd-bg': '#E6E2C5', 'nerd-dark': '#2B4593', 'nerd-accent': '#055254',
+                        'nerd-paper': '#F4E9DE', 'nerd-secondary': '#5FA09D'
+                    },
+                    fontFamily: { sans: ['Merriweather', 'serif'], heading: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2B4593;
+            border-radius: 10px;
+        }
+
+        .chat-container {
+            height: calc(100vh - 180px);
+        }
+
+        .sidebar-height {
+            height: calc(100vh - 80px);
+        }
+    </style>
+</head>
+
+<body class="bg-nerd-bg text-nerd-dark font-sans overflow-hidden">
+
+    <nav class="h-20 border-b border-nerd-dark/20 flex items-center px-6 justify-between bg-nerd-bg z-50 relative">
+        <div class="flex items-center gap-4">
+            <a href="Home.html" class="font-heading font-bold text-2xl">Science<span
+                    class="text-nerd-accent italic">Nerd</span></a>
+            <span class="text-xs bg-nerd-dark text-white px-2 py-1 rounded uppercase tracking-widest font-bold">AI
+                Tutor</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="Sim.html"
+                class="text-sm font-bold border border-nerd-dark px-4 py-2 rounded-full hover:bg-nerd-dark hover:text-white transition">Back
+                to Lab</a>
+            <div class="w-10 h-10 rounded-full bg-nerd-accent border-2 border-nerd-dark"></div>
+        </div>
+        <a href="quiz.html"
+            class="inline-block bg-nerd-dark text-white px-6 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-transform ml-2">
+            Take a Quiz 📝
+        </a>
+        <button onclick="window.location.href='Sim.html'"
+            class="bg-[#2B4593] text-white px-6 py-3 rounded-full font-bold">
+            Start Virtual Lab 🧪
+        </button>
+    </nav>
+
+    <div class="flex">
+        <aside
+            class="w-72 border-r border-nerd-dark/10 sidebar-height overflow-y-auto custom-scrollbar p-4 hidden md:block">
+            <button
+                class="w-full py-3 mb-6 border-2 border-dashed border-nerd-dark/30 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-nerd-paper transition"
+                onclick="window.location.href='Home.html'">
+                New Lesson
+            </button>
+            <div id="recent-lessons-list" class="space-y-1">
+                <h3 class="text-[10px] uppercase font-bold text-nerd-accent mb-3 opacity-60 tracking-tighter">Recent
+                    Lessons</h3>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col relative">
+            <div id="chat-box" class="chat-container overflow-y-auto custom-scrollbar p-6 md:p-12 space-y-8">
+                <div class="flex gap-4 max-w-3xl">
+                    <div
+                        class="w-8 h-8 rounded-lg bg-nerd-dark flex-shrink-0 flex items-center justify-center text-white font-bold text-xs italic">
+                        SN</div>
+                    <div class="space-y-4">
+                        <h2 id="lesson-title" class="font-heading text-xl font-bold text-nerd-dark italic">Processing
+                            Lesson...</h2>
+                        <p id="lesson-summary" class="leading-relaxed">Please wait while I analyze the content...</p>
+                        <div id="law-highlight"
+                            class="bg-nerd-paper border border-nerd-accent/20 p-4 rounded-2xl italic text-sm text-nerd-accent">
+                        </div>
+                        <p class="font-bold text-nerd-dark">Want to try a simulation?</p>
+                        <a href="Sim.html"
+                            class="inline-block bg-nerd-accent text-white px-6 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-transform">Go
+                            to Lab 🧪</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-0 w-full p-6 bg-gradient-to-t from-nerd-bg via-nerd-bg to-transparent">
+                <div class="max-w-4xl mx-auto relative">
+                    <textarea id="user-input" rows="1" placeholder="Ask ScienceNerd about the lesson..."
+                        class="w-full bg-white/50 border-2 border-nerd-dark/20 rounded-2xl py-4 pl-6 pr-16 focus:outline-none focus:border-nerd-dark transition-all custom-scrollbar resize-none shadow-xl"></textarea>
+                    <button id="send-chat"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 bg-nerd-dark text-white p-2.5 rounded-xl hover:bg-nerd-accent transition-all shadow-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+    // --- 1. تعريف العناصر الأساسية ---
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.querySelector('button.absolute.right-3');
+    
+    // مصفوفة لحفظ تاريخ الشات عشان الـ AI يفتكر الكلام
+    let chatHistory = [];
+
+    // --- 2. عرض بيانات الدرس عند التحميل ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const rawData = localStorage.getItem('lessonAnalysis');
+
+        if (rawData) {
+            try {
+                // التأكد إن الداتا مش String متكرر
+                const data = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+
+                document.getElementById('lesson-title').innerText = data.title || "درس جديد";
+                document.getElementById('lesson-summary').innerText = data.summary || "أنا جاهز لمناقشة هذا الملف معك.";
+
+                const lawElem = document.getElementById('law-highlight');
+                if (data.laws && data.laws.length > 0) {
+                    lawElem.innerText = Array.isArray(data.laws) ? data.laws.join(' • ') : data.laws;
+                    lawElem.style.display = 'block';
+                } else {
+                    lawElem.style.display = 'none';
+                }
+
+                updateSidebar(data.title);
+                
+                // إضافة سياق الدرس لتاريخ الشات كأول رسالة مخفية
+                chatHistory.push({ role: "system", content: `سياق الدرس الحالي: ${JSON.stringify(data)}` });
+
+            } catch (e) {
+                console.error("Error parsing stored data", e);
+            }
+        } else {
+            document.getElementById('lesson-title').innerText = "مرحباً بك في ScienceNerd AI";
+            document.getElementById('lesson-summary').innerText = "أنا مساعدك الذكي. يمكنك رفع ملف PDF لنبدأ الشرح أو الدردشة معي مباشرة!";
+            document.getElementById('law-highlight').style.display = 'none';
+        }
+    });
+
+    // --- 3. وظيفة الشات (الإرسال للسيرفر) ---
+    async function askAI(message) {
+        const tempId = "ai-" + Date.now();
+        addMessage("جاري التفكير...", true, tempId);
+
+        try {
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: message,
+                    history: chatHistory // نبعت التاريخ عشان يفتكر
+                })
+            });
+
+            const data = await response.json();
+
+            const aiBubble = document.getElementById(tempId);
+            if (aiBubble) {
+                if (data.success && data.reply) {
+                    aiBubble.innerText = data.reply;
+                    // حفظ رد الـ AI في التاريخ
+                    chatHistory.push({ role: "user", content: message });
+                    chatHistory.push({ role: "assistant", content: data.reply });
+                } else {
+                    aiBubble.innerText = "عذراً، حدث خطأ في معالجة الرد. حاول مرة أخرى.";
+                }
+            }
+        } catch (error) {
+            console.error("Chat Error:", error);
+            const aiBubble = document.getElementById(tempId);
+            if (aiBubble) {
+                aiBubble.innerText = "مشكلة في الاتصال بالسيرفر. تأكد من تشغيل node server.js";
+            }
+        }
+    }
+
+    // --- 4. وظيفة إضافة الفقاعات ---
+    function addMessage(text, isAi = false, id = null) {
+        const initial = isAi ? 'SN' : 'H';
+        const bgColor = isAi ? 'bg-nerd-dark' : 'bg-nerd-accent';
+        const alignment = isAi ? '' : 'ml-auto flex-row-reverse';
+        // تعديل بسيط في الاستايل عشان الكلام العربي يبان صح
+        const bubbleStyle = isAi ? 'text-nerd-dark leading-relaxed' : 'bg-nerd-dark text-nerd-bg px-5 py-3 rounded-2xl rounded-tr-none shadow-lg text-sm';
+
+        const msgHTML = `
+        <div class="flex gap-4 max-w-3xl ${alignment} mb-6 animate-fade-in">
+            <div class="w-8 h-8 rounded-lg ${bgColor} flex-shrink-0 flex items-center justify-center text-white font-bold text-xs italic">
+                ${initial}
+            </div>
+            <div class="${isAi ? 'space-y-4 w-full' : ''}">
+                <div class="${bubbleStyle}" ${id ? `id="${id}"` : ''}>
+                    ${text}
+                </div>
+            </div>
+        </div>`;
+
+        chatBox.insertAdjacentHTML('beforeend', msgHTML);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // --- 5. مستمعي الأحداث ---
+    sendBtn.addEventListener('click', () => {
+        const text = userInput.value.trim();
+        if (text) {
+            addMessage(text, false);
+            askAI(text);
+            userInput.value = '';
+            userInput.style.height = 'auto';
+        }
+    });
+
+    userInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendBtn.click();
+        }
+    });
+
+    function updateSidebar(title) {
+        const sidebarList = document.getElementById('recent-lessons-list') || document.querySelector('aside .space-y-1');
+        if(!sidebarList) return;
+        const itemHTML = `
+        <div class="bg-nerd-paper p-3 rounded-lg border-l-4 border-nerd-dark shadow-sm mb-2 cursor-pointer hover:bg-white transition">
+            <p class="text-xs font-bold truncate text-nerd-dark">${title || "درس حالي"}</p>
+            <p class="text-[10px] opacity-50 italic">قيد الدراسة الآن</p>
+        </div>`;
+        sidebarList.insertAdjacentHTML('afterbegin', itemHTML);
+    }
+
+    userInput.addEventListener('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+</script>
+</body>
+
+</html>

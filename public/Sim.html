@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ScienceNerd | المعمل الافتراضي</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100vh; overflow: hidden; background: #f4e9de; font-family: sans-serif; }
+        #lab-iframe { width: 100%; height: 100vh; border: none; display: none; }
+        #loader { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #f4e9de; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; z-index: 999; 
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border-left-color: #2B4593;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <h2 style="color: #2B4593;">جاري تجهيز بيئة المعمل...</h2>
+        <p>ScienceNerd AI يقوم بتصميم التجربة الآن</p>
+    </div>
+
+    <iframe id="lab-iframe"></iframe>
+
+    <script>
+        async function buildLab() {
+            const analysis = localStorage.getItem('lessonAnalysis');
+            const iframe = document.getElementById('lab-iframe');
+            const loader = document.getElementById('loader');
+
+            if (!analysis) {
+                loader.innerHTML = "<h2>عذراً، لا توجد بيانات للدرس. ارفع الملف أولاً.</h2>";
+                return;
+            }
+
+            try {
+                const response = await fetch('/generate-sim', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ analysis })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.html) {
+                    const doc = iframe.contentWindow.document;
+                    doc.open();
+                    doc.write(data.html);
+                    doc.close();
+
+                    loader.style.display = 'none';
+                    iframe.style.display = 'block';
+                } else {
+                    throw new Error("Failed to load AI code");
+                }
+            } catch (err) {
+                console.error(err);
+                loader.innerHTML = `
+                    <h2 style="color: red;">فشل تشغيل المعمل</h2>
+                    <button onclick="location.reload()" style="padding: 10px 20px; background: #2B4593; color: white; border: none; cursor: pointer;">إعادة المحاولة</button>
+                `;
+            }
+        }
+        window.onload = buildLab;
+    </script>
+</body>
+</html>
