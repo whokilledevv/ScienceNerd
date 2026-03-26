@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -10,40 +10,54 @@ const app = express();
 const upload = multer({ dest: 'uploads/' });
 
 app.use(express.json());
-app.use(express.static('public'));
-
-const apiKey = process.env.GROQ_API_KEY;
-
-// 1. تحليل الـ PDF
+app.use(express.static(__dirname));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+const apiKey = "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";
 app.post('/upload-pdf', upload.single('pdf'), async (req, res) => {
     if (!req.file) return res.status(400).json({ success: false, error: "No file" });
+
     try {
         const dataBuffer = fs.readFileSync(req.file.path);
         const data = await pdf(dataBuffer);
         const text = data.text.substring(0, 3000);
+        
+        console.log("Extracted text length:", text.length);
+        console.log("Current Key being used:", apiKey.substring(0, 10) + "...");
 
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${GROQ_API_KEY}` },
+            headers: { 
+                "Content-Type": "application/json", 
+                "Authorization": `Bearer ${apiKey}`},
+                
             body: JSON.stringify({
                 model: "llama-3.3-70b-versatile",
                 messages: [
-                    { role: "system", content: "You are a professional science teacher. Return ONLY JSON with {title, summary, laws, concepts} in  ENGLICH" },
+                    { role: "system", content: "You are a professional science teacher. Return ONLY JSON with {title, summary, laws, concepts} in ENGLISH" },
                     { role: "user", content: `Analyze: ${text}` }
                 ],
                 response_format: { type: "json_object" }
             })
         });
+
+        // This is where the IF statement goes — AFTER the fetch is done!
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Groq API Error:", errorData);
+            return res.status(500).json({ success: false, error: "AI failed to respond" });
+        }
+
         const result = await response.json();
-        if (result.error) return res.status(500).json({ success: false, error: result.error.message });
-        
-        fs.unlinkSync(req.file.path);
-        res.json({ success: true, analysis: result.choices[0].message.content });
+        fs.unlinkSync(req.file.path); // Deletes the temp file
+        res.json({ success: true, analysis: JSON.parse(result.choices[0].message.content) });
+
     } catch (error) {
+        console.error("Server Error:", error);
         res.status(500).json({ success: false });
     }
 });
-
 // 2. تعديل الشات عشان يشتغل بـ Groq (ده اللي كان ناقصك)
 // 1. General Chat (Talk about anything!)
 app.post('/chat', async (req, res) => {
@@ -51,7 +65,7 @@ app.post('/chat', async (req, res) => {
     try {
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${GROQ_API_KEY}` },
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
             body: JSON.stringify({
                 model: "llama-3.3-70b-versatile",
                 messages: [
